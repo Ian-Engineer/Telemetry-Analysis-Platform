@@ -1,0 +1,15 @@
+fastapi>=0.95.0,<1.0.0
+uvicorn[standard]>=0.20.0
+pydantic>=1.10.0,<2.0.0
+python-multipart>=0.0.6      # form uploads
+aiofiles>=23.0.0             # static file serving / uploads
+jinja2>=3.1.0                # templating (optional)
+sqlalchemy>=1.4,<2.0         # ORM (optional)
+databases[postgresql]>=0.5.0 # async DB layer (optional)
+asyncpg>=0.27.0              # Postgres driver (optional)
+alembic>=1.10.0              # migrations (optional)
+python-jose[cryptography]>=3.3.0  # JWT auth (optional)
+passlib[bcrypt]>=1.7.0       # password hashing (optional)
+httpx>=0.24.0                # async HTTP client (optional)
+pytest>=7.3.0                # tests
+pytest-asyncio>=0.20.0       # async tests
