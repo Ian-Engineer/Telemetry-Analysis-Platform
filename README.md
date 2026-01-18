@@ -91,7 +91,7 @@ DATABASE_URL=postgresql://postgres:postgres@postgres:5432/telemetry
 
 This project uses Alembic to manage database schema changes.
 
-# Run Migrations
+### Run Migrations
 After starting Postgres with Docker:
 ```alembic upgrade head```
 
@@ -99,7 +99,7 @@ This will:
 - Create all tables
 - Apply the latest schema
 
-# When you change models
+### When you change models
 If you modify SQLAlchemy models:
 ```
 alembic revision --autogenerate -m "describe change"
