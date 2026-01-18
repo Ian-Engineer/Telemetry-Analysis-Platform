@@ -87,6 +87,26 @@ DATABASE_URL=postgresql://postgres:postgres@postgres:5432/telemetry
 
 ------------------------------------------------------------------------
 
+## Data Model Overview
+
+```
+Mission
+  └── Spacecraft
+        └── Subsystem
+              └── Sensor
+                    └── TelemetryPoint
+
+Mission
+  └── Event
+
+User
+  └── Role (many-to-many via user_roles)
+```
+
+The system models missions as a hierarchy: Mission → Spacecraft → Subsystem → Sensor, with TelemetryPoint storing time-series data for each sensor. Events are used to correlate telemetry with mission actions. Users and roles support RBAC using a many-to-many relationship.
+
+------------------------------------------------------------------------
+
 ## 🗄 Database Migrations (Alembic)
 
 This project uses Alembic to manage database schema changes.
