@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depeneds, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+from ..database import models, schemas, database
+
 app = FastAPI()
 
 # Define a path operation decorator for the root URL ("/") with a GET method
