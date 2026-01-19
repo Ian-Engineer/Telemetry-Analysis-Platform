@@ -6,9 +6,11 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
-    depends_on:
-      - backend
+      - "5173:5173"   # or 3000 depending on your dev server
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
 
   backend:
     build:
