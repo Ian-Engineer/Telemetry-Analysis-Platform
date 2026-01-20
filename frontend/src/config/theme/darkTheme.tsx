@@ -34,7 +34,7 @@ const darkThemeOptions: ThemeOptions = {
         MuiInputBase: {
             styleOverrides: {
                 input: {
-                    color: sixtyPercent,
+                    color: textColor,
                     fontWeight: 600,
                 },
             },
@@ -76,12 +76,24 @@ const darkThemeOptions: ThemeOptions = {
                 root: {
                     backgroundColor: tenPercent,
                     '&:hover': {
-                        filter: "brightness(90%)"
+                        filter: "brightness(90%)",
+                        backgroundColor: tenPercent,
                     },
                     color: contrastTextColor,
                     borderRadius: "50px",
-                    textTransform: 'none'
+                    textTransform: 'none',
+                    "& .MuiSvgIcon-root": {
+                        color: contrastTextColor,
+                    },
                 },
+            }
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    borderColor: thirtyPercent,
+                    borderWidth: '2px',
+                }
             }
         },
         MuiAppBar: {

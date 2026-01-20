@@ -33,7 +33,7 @@ const lightThemeOptions: ThemeOptions = {
         MuiInputBase: {
             styleOverrides: {
                 input: {
-                    color: sixtyPercent,
+                    color: textColor,
                     fontWeight: 600,
                 },
             },
@@ -75,12 +75,21 @@ const lightThemeOptions: ThemeOptions = {
                 root: {
                     backgroundColor: tenPercent,
                     '&:hover': {
-                        filter: "brightness(90%)"
+                        filter: "brightness(90%)",
+                        backgroundColor: tenPercent,
                     },
                     color: textColor,
                     borderRadius: "50px",
                     textTransform: 'none'
                 },
+            }
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    borderColor: thirtyPercent,
+                    borderWidth: '2px',
+                }
             }
         },
         MuiAppBar: {
