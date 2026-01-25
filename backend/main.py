@@ -1,11 +1,9 @@
-from fastapi import FastAPI, Depeneds, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-from ..database import models, schemas, database
+from fastapi import FastAPI
+from backend.routers.missions import router as missions_router
 
 app = FastAPI()
-
-app.include_router(api_router)
+app.include_router(missions_router, prefix="/missions", tags=["missions"])
 
 @app.get("/health")
 async def root():
-    return {"message": "healthy"}
+    return { "message": "healthy" }
