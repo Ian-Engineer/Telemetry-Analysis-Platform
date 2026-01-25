@@ -1,8 +1,13 @@
 import { CloudUpload } from "@mui/icons-material";
 import { Box, Button, Divider, Input, Select, styled, Typography } from "@mui/material";
 import api from "../../api";
+import { useEffect, useState } from "react";
+import type { Mission, ApiResponse } from "../../config/models";
 
 function MissionsPage() {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [missions, setMissions] = useState<Array<Mission>>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.length) return;
@@ -23,6 +28,22 @@ function MissionsPage() {
         whiteSpace: 'nowrap',
         width: 1,
     })
+
+    useEffect(() => {
+        // make api call getting missions list
+        api.getRequest("/missions").then((response: ApiResponse<Array<Mission>>) => {
+            console.log(response);
+            if (response.success && response.data) {
+                setMissions(response.data);
+            } else {
+                setError("Failed to fetch missions list.");
+            }
+            setLoading(false);
+        }).catch(() => {
+            setError("Failed to fetch missions list.");
+            setLoading(false);
+        });
+    }, []);
 
     return (
         <div className="w-full flex flex-col gap-8 m-4">
@@ -58,10 +79,36 @@ function MissionsPage() {
                             <option value={"Completed"}>Completed</option>
                         </Select>
                     </div>
-                    <div id="existing-missions-list-content">
-                        <Typography variant="body2">
-                            No missions available.
-                        </Typography>
+                    <div id="existing-missions-list-content" className="flex flex-col justify-center items-center mt-4">
+                        {loading ? (
+                            <Typography variant="body2">
+                                Loading missions...
+                            </Typography>
+                        ) : error ? (
+                            <Typography variant="body2" color="error">
+                                {error}
+                            </Typography>
+                        ) : missions.length > 0 ? (
+                            <ul>
+                                {missions.map((mission) => (
+                                    <li key={mission.id} className="mb-2 p-2 border rounded">
+                                        <Typography variant="h6">{mission.name}</Typography>
+                                        <Typography variant="body2">Status: {mission.status}</Typography>
+                                        <Typography variant="body2">Start Date: {new Date(mission.startDate).toLocaleDateString()}</Typography>
+                                        {mission.endDate && (
+                                            <Typography variant="body2">End Date: {new Date(mission.endDate).toLocaleDateString()}</Typography>
+                                        )}
+                                        {mission.description && (
+                                            <Typography variant="body2">Description: {mission.description}</Typography>
+                                        )}                                 
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <Typography variant="body2">
+                                No missions available.
+                            </Typography>
+                        )}
                     </div>
                 </div>
             </div>

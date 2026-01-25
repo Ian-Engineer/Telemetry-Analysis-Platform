@@ -5,6 +5,7 @@ from database.database import get_db
 from database.models import Mission
 from backend.schemas.mission import MissionOut
 from sqlalchemy import select
+from backend.schemas.common import APIResponse
 
 router = APIRouter()
 
@@ -16,8 +17,11 @@ router = APIRouter()
 #     return await create_mission(payload, db)
 
 
-@router.get("/", response_model=list[MissionOut])
+@router.get("/", response_model=APIResponse[list[MissionOut]])
 async def list_missions(db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Mission))
     missions = result.scalars().all()
-    return missions
+    return APIResponse(
+        success=True,
+        data=missions
+    )
